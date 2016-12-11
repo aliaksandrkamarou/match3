@@ -98,6 +98,10 @@ public:
 	void SetTileMaterial(class UMaterialInstanceConstant* TileMaterial);
 	virtual void SetTileMaterial_Implementation(class UMaterialInstanceConstant* TileMaterial);
 
+	UFUNCTION(BlueprintNativeEvent, Category = "Special Game Events")
+	void SetTileSprite(class  UPaperSprite* TileSprite);
+	virtual void SetTileSprite_Implementation(class  UPaperSprite* TileSprite);
+
 	/** Called when a match has been made, and says what type of move led to the match. */
 	UFUNCTION(BlueprintNativeEvent, Category = "Special Game Events")
 	void OnMatched(EMatch3MoveType::Type MoveType);

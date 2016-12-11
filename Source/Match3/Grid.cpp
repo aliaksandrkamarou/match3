@@ -64,13 +64,13 @@ void AGrid::InitGrid()
 					break;
 				}
 			} while (true);
-			CreateTile(TileLibrary[TileID].TileClass, TileLibrary[TileID].TileMaterial, SpawnLocation, GridAddress, TileID);
+			CreateTile(TileLibrary[TileID].TileClass, TileLibrary[TileID].TileMaterial, TileLibrary[TileID].SpriteType, SpawnLocation, GridAddress, TileID);
 		}
 	}
 }
 
 
-ATile* AGrid::CreateTile(TSubclassOf<class ATile> TileToSpawn, class UMaterialInstanceConstant* TileMaterial, FVector SpawnLocation, int32 SpawnGridAddress, int32 TileTypeID)
+ATile* AGrid::CreateTile(TSubclassOf<class ATile> TileToSpawn, class UMaterialInstanceConstant* TileMaterial, class UPaperSprite* SpriteType, FVector SpawnLocation, int32 SpawnGridAddress, int32 TileTypeID)
 {
 	// If we have set something to spawn:
 	if (TileToSpawn)
@@ -92,7 +92,8 @@ ATile* AGrid::CreateTile(TSubclassOf<class ATile> TileToSpawn, class UMaterialIn
 			NewTile->GetRenderComponent()->SetMobility(EComponentMobility::Movable);
 			NewTile->TileTypeID = TileTypeID;
 			NewTile->Abilities = TileLibrary[TileTypeID].Abilities;
-			NewTile->SetTileMaterial(TileMaterial);
+			//NewTile->SetTileMaterial(TileMaterial);
+			NewTile->SetTileSprite(SpriteType);
 			NewTile->SetGridAddress(SpawnGridAddress);
 			GameTiles[SpawnGridAddress] = NewTile;
 			return NewTile;
@@ -259,7 +260,7 @@ void AGrid::RespawnTiles()
 				int32 NewTileTypeID = SelectTileFromLibrary();
 				GetGridAddressWithOffset(BaseAddress, 0, -y, TestAddress);
 				// Move our tile up visually so it has room to fall, but don't change its grid address. The new grid address would be off-grid and invalid anyway.
-				if (ATile* NewTile = CreateTile(TileLibrary[NewTileTypeID].TileClass, TileLibrary[NewTileTypeID].TileMaterial, GetLocationFromGridAddressWithOffset(TestAddress, 0, (y_depth + 1)), TestAddress, NewTileTypeID))
+				if (ATile* NewTile = CreateTile(TileLibrary[NewTileTypeID].TileClass, TileLibrary[NewTileTypeID].TileMaterial, TileLibrary[NewTileTypeID].SpriteType, GetLocationFromGridAddressWithOffset(TestAddress, 0, (y_depth + 1)), TestAddress, NewTileTypeID))
 				{
 					TilesToCheck.Add(NewTile);
 					NewTile->TileState = ETileState::ETS_Falling;

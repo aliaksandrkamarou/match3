@@ -17,6 +17,9 @@ struct FTileType
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	class UMaterialInstanceConstant* TileMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class  UPaperSprite* SpriteType;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class ATile> TileClass;
@@ -65,7 +68,7 @@ public:
 	int32 GridHeight;
 
 	/** Spawn a tile and associate it with a specific grid address. */
-	ATile* CreateTile(TSubclassOf<class ATile> TileToSpawn, class UMaterialInstanceConstant* TileMaterial, FVector SpawnLocation, int32 SpawnGridAddress, int32 TileTypeID);
+	ATile* CreateTile(TSubclassOf<class ATile> TileToSpawn, class UMaterialInstanceConstant* TileMaterial, class UPaperSprite* SpriteType, FVector SpawnLocation, int32 SpawnGridAddress, int32 TileTypeID);
 	/** Randomly select a type of tile from the grid's library, using the probability values on the tiles. */
 	int32 SelectTileFromLibrary();
 

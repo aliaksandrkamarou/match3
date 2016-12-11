@@ -46,6 +46,10 @@ void ATile::SetTileMaterial_Implementation(class UMaterialInstanceConstant* Mate
 	GetRenderComponent()->SetMaterial(0, MaterialToUse);
 }
 
+void ATile::SetTileSprite_Implementation(class UPaperSprite* TileSprite)
+{
+	GetRenderComponent()->SetSprite(TileSprite);
+}
 
 void ATile::TilePress(ETouchIndex::Type FingerIndex, AActor* TouchedActor)
 {
